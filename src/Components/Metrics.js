@@ -2,14 +2,16 @@ import React from 'react';
 import {Component} from "react";
 import PlacesAutocomplete from 'react-places-autocomplete';
 import api from "../apiService";
-
+import CalcService from '../calcService.js';
 class Metrics extends Component {
     constructor(props) {
         super(props);
         this.state = {
             sport_id:'',
             address: '',
-            place_id:''
+            place_id:'',
+            priceCalc: null,
+            budgetCalc: null
         };
     }
     handleChangeSport = event => {
@@ -18,20 +20,23 @@ class Metrics extends Component {
     }
     handleChange = address => {
         this.setState({ address });
-    };
+    }
 
     handleSelect = (address, place_id) => {
         this.setState({ address, place_id });
 
-    };
+    }
     handleSubmit = event => {
         event.preventDefault();
-        api.ranking(this.state.sport_id, this.state.place_id).then(console.log).catch(console.error);
+        api.metrics(this.state.sport_id, this.state.place_id)
+            .then(response => Promise.all([CalcService.calcPrice(response.data), CalcService.calcBudget(response.data) ]))
+            .then(([priceCalc, budgetCalc]) => this.setState({priceCalc, budgetCalc}))
+            .catch(console.error);
     }
 
     render() {
         return (
-
+          <div>
             <PlacesAutocomplete
                 value={this.state.address}
                 onChange={this.handleChange}
@@ -66,7 +71,19 @@ class Metrics extends Component {
                     </div>
                 )}
             </PlacesAutocomplete>
+              { this.state.priceCalc && this.state.budgetCalc && (
+                  <div className="container justify-content-center">
+                      <h6>Precio por mensaje máximo: {this.state.priceCalc.maxMessagePrice}</h6>
+                      <h6>Precio por mensaje mínimo: {this.state.priceCalc.minMessagePrice}</h6>
+                      <h6>Precio por mensaje medio: {this.state.priceCalc.medMessagePrice}</h6>
+                      <h6>Presupuesto máximo: {this.state.budgetCalc.maxBudget}</h6>
+                      <h6>Presupuesto mínimo: {this.state.budgetCalc.minBudget}</h6>
+                      <h6>Presupuesto medio: {this.state.budgetCalc.medBudget}</h6>
+                  </div>
+              )}
+        </div>
         );
+
     }
 }
 

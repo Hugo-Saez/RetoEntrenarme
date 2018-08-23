@@ -34,16 +34,31 @@ const login = (data) => new Promise((resolve, reject)=> {
         .catch(response => reject(response));
 });
 
-const ranking = (sport, place) => new Promise((resolve, reject)=> {
+const metrics = (sport, place) => new Promise((resolve, reject)=> {
     axios.get(baseUrl + 'test/sports?sport_id=' + sport +  '&place_id=' + place )
         .then(response => {
             if (response.data.error) {
                 reject(response.data);
             } else {
+                console.log(response.data);
                 resolve(response.data);
             }
         })
         .catch(response => reject(response));
 });
 
-export default {register, login, ranking};
+const getRanking = () => new Promise((resolve, reject)=> {
+    axios.get(baseUrl + 'test/ranking' )
+        .then(response => {
+            if (response.data.error) {
+                reject(response.data);
+            } else {
+                console.log(response.data);
+                resolve(response.data);
+            }
+        })
+        .catch(response => reject(response));
+});
+
+
+export default {register, login, metrics, getRanking};
