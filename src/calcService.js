@@ -20,7 +20,8 @@ const CalcService = {
                     minMessagePrice = messagePrice;
                 }
             }
-            medMessagePrice = totalMessagePrice / lastMark;
+            let medMessagePriceCalc = totalMessagePrice / lastMark;
+            medMessagePrice = medMessagePriceCalc.toFixed(2);
             resolve({maxMessagePrice, minMessagePrice, medMessagePrice});
         })
     },
@@ -43,7 +44,8 @@ const CalcService = {
                     minBudget = budget;
                 };
             }
-            medBudget = totalBudget / lastMark;
+            let medBudgetCalc = totalBudget / lastMark;
+            medBudget = medBudgetCalc.toFixed(2);
             resolve({maxBudget, minBudget, medBudget});
         })
     }

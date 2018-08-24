@@ -38,3 +38,25 @@
   margin-top: 23px;
   margin-bottom: 23px;
 }
+.button-submit,
+.button-submit:hover{
+  color: white;
+  background-color: #0C5360;
+  opacity: 0.7;
+  border-color: black;
+  transition: 0.35s;
+}
+.button-submit:active {
+  /*color: white !important;*/
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.table-metrics {
+  max-width: 700px !important;
+  text-align: center !important;
+}
+
+table-metrics, th, td {
+  border: 1px solid lightgrey;
+  width: 500px;
+}

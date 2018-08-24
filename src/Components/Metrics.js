@@ -45,7 +45,7 @@ class Metrics extends Component {
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                     <div className="container justify-content-center">
                         Deporte:
-                        <input className="form-control" type="text" value={this.state.sport_id} onChange={this.handleChangeSport.bind(this)} />
+                        <input className="form-control" type="number" value={this.state.sport_id} onChange={this.handleChangeSport.bind(this)} />
                         Ciudad:
                         <input
                             {...getInputProps({
@@ -72,14 +72,43 @@ class Metrics extends Component {
                 )}
             </PlacesAutocomplete>
               { this.state.priceCalc && this.state.budgetCalc && (
-                  <div className="container justify-content-center">
-                      <h6>Precio por mensaje máximo: {this.state.priceCalc.maxMessagePrice}</h6>
-                      <h6>Precio por mensaje mínimo: {this.state.priceCalc.minMessagePrice}</h6>
-                      <h6>Precio por mensaje medio: {this.state.priceCalc.medMessagePrice}</h6>
-                      <h6>Presupuesto máximo: {this.state.budgetCalc.maxBudget}</h6>
-                      <h6>Presupuesto mínimo: {this.state.budgetCalc.minBudget}</h6>
-                      <h6>Presupuesto medio: {this.state.budgetCalc.medBudget}</h6>
+                  <div className="table table-metrics container justify-content-center">
+                      <table className="table table-metrics">
+                          <thead>
+                          <tr>
+                              <th>Precio mensaje máximo</th>
+                              <th>Precio mensaje mínimo</th>
+                              <th>Precio mensaje medio</th>
+                          </tr>
+                          </thead>
+
+                          <tbody>
+                          <tr>
+                              <td>{this.state.priceCalc.maxMessagePrice}</td>
+                              <td>{this.state.priceCalc.minMessagePrice}</td>
+                              <td>{this.state.priceCalc.medMessagePrice}</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                      <table className="table table-metrics">
+                          <thead>
+                          <tr>
+                              <th>Presupuesto máximo</th>
+                              <th>Presupuesto mínimo</th>
+                              <th>Presupuesto medio</th>
+                          </tr>
+                          </thead>
+
+                          <tbody>
+                          <tr>
+                              <td>{this.state.budgetCalc.maxBudget}</td>
+                              <td>{this.state.budgetCalc.minBudget}</td>
+                              <td>{this.state.budgetCalc.medBudget}</td>
+                          </tr>
+                          </tbody>
+                      </table>
                   </div>
+
               )}
         </div>
         );
