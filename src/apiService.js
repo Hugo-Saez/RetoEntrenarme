@@ -40,7 +40,7 @@ const metrics = (sport, place) => new Promise((resolve, reject)=> {
             if (response.data.error) {
                 reject(response.data);
             } else {
-                console.log(response.data);
+                // console.log(response.data);
                 resolve(response.data);
             }
         })
@@ -53,7 +53,7 @@ const getRanking = () => new Promise((resolve, reject)=> {
             if (response.data.error) {
                 reject(response.data);
             } else {
-                console.log(response.data);
+                // console.log(response.data);
                 resolve(response.data);
             }
         })
