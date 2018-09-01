@@ -3,7 +3,7 @@ const baseUrl = 'https://dev.entrenar.me/api/';
 const access_token = localStorage.getItem('access_token');
 
 if (access_token) {
-    console.log('token', access_token)
+    // console.log('token', access_token)
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
 }
 
@@ -25,8 +25,8 @@ const login = (data) => new Promise((resolve, reject)=> {
             if (response.data && !response.data.access_token) {
                 reject(response.data);
             } else {
-               let token = response.data.access_token;
-               localStorage.setItem('access_token', token);
+                let token = response.data.access_token;
+                localStorage.setItem('access_token', token);
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
                 resolve(response.data);
             }
@@ -35,6 +35,19 @@ const login = (data) => new Promise((resolve, reject)=> {
 });
 
 const metrics = (sport, place) => new Promise((resolve, reject)=> {
+    axios.get(baseUrl + 'test/sports?sport_id=' + sport +  '&place_id=' + place )
+        .then(response => {
+            if (response.data.error) {
+                reject(response.data);
+            } else {
+                // console.log(response.data);
+                resolve(response.data);
+            }
+        })
+        .catch(response =>reject(response.data));
+});
+
+const metricsAll = (sport, place) => new Promise((resolve, reject)=> {
     axios.get(baseUrl + 'test/sports?sport_id=' + sport +  '&place_id=' + place )
         .then(response => {
             if (response.data.error) {
@@ -60,5 +73,4 @@ const getRanking = () => new Promise((resolve, reject)=> {
         .catch(response => reject(response));
 });
 
-
-export default {register, login, metrics, getRanking};
+export default {register, login, metrics, metricsAll, getRanking};

@@ -60,3 +60,13 @@ table-metrics, th, td {
   border: 1px solid lightgrey;
   width: 500px;
 }
+
+#border-graphic {
+  margin-top: 23px;
+  margin-bottom: 23px;
+}
+
+hr {
+  height: 1px !important;
+  background-color: #0C5360;
+}
